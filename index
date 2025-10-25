@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Monastery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f6f4;
+            background-image: 
+                linear-gradient(135deg, #f8f6f4 0%, #e8e6e3 25%, #d4e7d4 50%, #e8e6e3 75%, #f8f6f4 100%);
+            background-attachment: fixed;
+            color: #2c2c2c;
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* Greek Pillars using borders and shadows */
+        .pillar-left,
+        .pillar-right {
+            position: absolute;
+            width: 60px;
+            height: 350px;
+            background: linear-gradient(90deg, #c8c8c8 0%, #e6e6e6 50%, #c8c8c8 100%);
+            opacity: 0.12;
+            pointer-events: none;
+            box-shadow: inset 3px 0 8px rgba(0,0,0,0.1), inset -3px 0 8px rgba(0,0,0,0.1);
+        }
+
+        .pillar-left {
+            left: 5%;
+            top: 20%;
+        }
+
+        .pillar-left::before,
+        .pillar-right::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: -10px;
+            width: 80px;
+            height: 30px;
+            background: linear-gradient(180deg, #dcdcdc 0%, #b4b4b4 100%);
+            border-radius: 5px 5px 0 0;
+        }
+
+        .pillar-left::after,
+        .pillar-right::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: -10px;
+            width: 80px;
+            height: 30px;
+            background: linear-gradient(180deg, #b4b4b4 0%, #a0a0a0 100%);
+            border-radius: 0 0 5px 5px;
+        }
+
+        .pillar-right {
+            right: 5%;
+            top: 30%;
+        }
+
+        /* Ivy vines */
+        .vine {
+            position: fixed;
+            width: 3px;
+            top: 0;
+            pointer-events: none;
+            opacity: 0.15;
+            z-index: 1;
+            filter: blur(1px);
+        }
+
+        .vine-1 {
+            left: 8%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 0%, #6aa84f 50%, transparent 100%);
+            animation: sway 8s ease-in-out infinite;
+        }
+
+        .vine-2 {
+            right: 12%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 0%, #8bc34a 50%, transparent 100%);
+            animation: sway 10s ease-in-out infinite reverse;
+        }
+
+        .vine-3 {
+            left: 35%;
+            height: 80%;
+            top: 200px;
+            background: linear-gradient(180deg, transparent 0%, #6aa84f 50%, transparent 100%);
+            animation: sway 12s ease-in-out infinite;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: translateX(0) scaleY(1); }
+            50% { transform: translateX(10px) scaleY(1.02); }
+        }
+
+        /* Floating leaves */
+        .leaf {
+            position: absolute;
+            width: 30px;
+            height: 45px;
+            background: linear-gradient(135deg, #6aa84f 0%, #8bc34a 100%);
+            clip-path: ellipse(50% 50% at 50% 50%);
+            opacity: 0.12;
+            pointer-events: none;
+            animation: leafFloat 15s ease-in-out infinite;
+        }
+
+        .leaf-1 {
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .leaf-2 {
+            top: 45%;
+            right: 15%;
+            animation-delay: 3s;
+            transform: rotate(45deg);
+        }
+
+        .leaf-3 {
+            top: 75%;
+            left: 20%;
+            animation-delay: 6s;
+            transform: rotate(-30deg);
+        }
+
+        @keyframes leafFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        /* Stone texture using multiple box shadows */
+        .stone-texture {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            opacity: 0.04;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 20% 30%, #646464 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, #787878 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, #5a5a5a 0%, transparent 50%);
+            border-radius: 50%;
+            filter: blur(20px);
+        }
+
+        .stone-1 {
+            top: 10%;
+            left: 15%;
+        }
+
+        .stone-2 {
+            top: 50%;
+            right: 10%;
+        }
+
+        /* Fern using CSS shapes */
+        .fern {
+            position: absolute;
+            width: 100px;
+            height: 180px;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .fern::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, #6aa84f 0%, #4c843e 100%);
+            transform: translateX(-50%);
+        }
+
+        .fern::after {
+            content: '';
+            position: absolute;
+            left: 20%;
+            top: 30%;
+            width: 30px;
+            height: 2px;
+            background: #6aa84f;
+            box-shadow: 
+                30px 0 0 #6aa84f,
+                -5px 20px 0 #6aa84f,
+                35px 20px 0 #6aa84f,
+                -5px 40px 0 #6aa84f,
+                35px 40px 0 #6aa84f,
+                -5px 60px 0 #6aa84f,
+                35px 60px 0 #6aa84f;
+        }
+
+        .fern-left {
+            bottom: 10%;
+            left: 3%;
+            transform: rotate(-15deg);
+        }
+
+        .fern-right {
+            bottom: 20%;
+            right: 5%;
+            transform: rotate(15deg) scaleX(-1);
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10rem 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 6.5rem;
+            text-align: center;
+            letter-spacing: 0.25em;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            background: linear-gradient(135deg, #2c2c2c 0%, #6aa84f 50%, #2c2c2c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1.5s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            text-align: center;
+            letter-spacing: 0.12em;
+            margin-bottom: 5rem;
+            color: #4c843e;
+            font-weight: 300;
+            position: relative;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #6aa84f 50%, transparent 100%);
+        }
+
+        h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: #4c843e;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.08em;
+            font-weight: 400;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            font-style: italic;
+            opacity: 0;
+            font-weight: 300;
+            color: #636363;
+            animation: fadeIn 2s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 0.8; }
+        }
+
+        .divider {
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(180deg, transparent 0%, #6aa84f 50%, transparent 100%);
+            margin: 3rem auto;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-out 1s forwards;
+        }
+
+        .content {
+            font-size: 1.1rem;
+            line-height: 2;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            color: #2c2c2c;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .pillar-card {
+            padding: 3rem 2.5rem;
+            border-radius: 30px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(212, 231, 212, 0.7) 100%);
+            position: relative;
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 40px rgba(106, 168, 79, 0.15);
+            border: 1px solid rgba(106, 168, 79, 0.25);
+            overflow: hidden;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-5px) scale(1);
+            box-shadow: 0 20px 60px rgba(106, 168, 79, 0.25);
+        }
+
+        .pillar-card.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20px;
+            width: 100px;
+            height: 200%;
+            background: linear-gradient(180deg, transparent 0%, rgba(106, 168, 79, 0.08) 50%, transparent 100%);
+            transform: rotate(15deg);
+        }
+
+        .pillar-card::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(106, 168, 79, 0.2) 0%, transparent 70%);
+        }
+
+        .practice-section {
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 2.5rem;
+            border-radius: 25px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(212, 231, 212, 0.4) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(106, 168, 79, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .practice-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(106, 168, 79, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(139, 195, 74, 0.05) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .practice-section.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .practice-section:nth-child(even) {
+            transform: translateX(60px);
+            background: linear-gradient(135deg, rgba(212, 231, 212, 0.4) 0%, rgba(255, 255, 255, 0.6) 100%);
+        }
+
+        .practice-section:nth-child(even).visible {
+            transform: translateX(0);
+        }
+
+        .practice-section .content {
+            opacity: 1;
+            transform: none;
+            border-left: 2px solid rgba(106, 168, 79, 0.4);
+            padding-left: 2rem;
+            margin-left: 1rem;
+        }
+
+        .list-item {
+            margin-bottom: 2rem;
+            padding-left: 2.5rem;
+            font-size: 1.1rem;
+            line-height: 2;
+            font-weight: 300;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .list-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6aa84f 0%, #8bc34a 100%);
+        }
+
+        .list-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Organic floating shapes */
+        .organic-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.06;
+            pointer-events: none;
+            filter: blur(60px);
+        }
+
+        .shape-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #6aa84f 0%, transparent 70%);
+            top: 10%;
+            right: -10%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #8bc34a 0%, transparent 70%);
+            bottom: 20%;
+            left: -5%;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        .emphasis {
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            color: #4c843e;
+            margin: 4rem 0;
+            font-weight: 300;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            line-height: 1.8;
+        }
+
+        .emphasis.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .highlight {
+            font-weight: 500;
+            color: #4c843e;
+            background: linear-gradient(135deg, rgba(106, 168, 79, 0.2) 0%, rgba(139, 195, 74, 0.2) 100%);
+            padding: 0.2rem 0.8rem;
+            border-radius: 15px;
+        }
+
+        .final-section {
+            text-align: center;
+        }
+
+        .final-section .content {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            font-style: italic;
+        }
+
+        .final-section .emphasis {
+            font-size: 2.2rem;
+            color: #4c843e;
+        }
+
+        /* Flowing corner accents */
+        .corner-accent {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            opacity: 0.08;
+            pointer-events: none;
+            border-radius: 50%;
+            background: radial-gradient(circle, #6aa84f 0%, transparent 70%);
+            filter: blur(40px);
+        }
+
+        .corner-tl {
+            top: 100px;
+            left: 100px;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        .corner-tr {
+            top: 100px;
+            right: 100px;
+            animation: pulse 8s ease-in-out infinite 2s;
+        }
+
+        .corner-bl {
+            bottom: 100px;
+            left: 100px;
+            animation: pulse 8s ease-in-out infinite 4s;
+        }
+
+        .corner-br {
+            bottom: 100px;
+            right: 100px;
+            animation: pulse 8s ease-in-out infinite 6s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.08; }
+            50% { transform: scale(1.2); opacity: 0.12; }
+        }
+
+        /* Infinity symbol */
+        .infinity {
+            position: absolute;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 12rem;
+            color: #6aa84f;
+            opacity: 0.05;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 100;
+            animation: rotate 60s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Column decorations using pure CSS */
+        .column-decoration {
+            position: absolute;
+            width: 70px;
+            height: 400px;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .column-left {
+            left: 3%;
+            top: 15%;
+        }
+
+        .column-right {
+            right: 3%;
+            top: 25%;
+        }
+
+        .column-decoration::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10px;
+            width: 50px;
+            height: 40px;
+            background: linear-gradient(180deg, #dcdcdc 0%, #b4b4b4 100%);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .column-decoration::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 15px;
+            width: 40px;
+            height: 320px;
+            background: linear-gradient(90deg, #c8c8c8 0%, #e6e6e6 50%, #c8c8c8 100%);
+            box-shadow: inset 2px 0 5px rgba(0,0,0,0.1), inset -2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+            h2 {
+                font-size: 2.5rem;
+            }
+            h3 {
+                font-size: 1.6rem;
+            }
+            .pillar-grid {
+                grid-template-columns: 1fr;
+            }
+            section {
+                padding: 6rem 1.5rem;
+            }
+            .pillar-left,
+            .pillar-right,
+            .column-decoration,
+            .fern {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative vines -->
+    <div class="vine vine-1"></div>
+    <div class="vine vine-2"></div>
+    <div class="vine vine-3"></div>
+
+    <!-- Floating leaves -->
+    <div class="leaf leaf-1"></div>
+    <div class="leaf leaf-2"></div>
+    <div class="leaf leaf-3"></div>
+
+    <!-- Hero Section -->
+    <section>
+        <div class="organic-shape shape-1"></div>
+        <div class="pillar-left"></div>
+        <div class="pillar-right"></div>
+        <div class="container">
+            <h1>THE MONASTERY</h1>
+            <div class="divider"></div>
+            <p class="subtitle">A space beyond the ordinary</p>
+        </div>
+    </section>
+
+    <!-- What It Is -->
+    <section>
+        <div class="organic-shape shape-2"></div>
+        <div class="stone-texture stone-1"></div>
+        <div class="fern fern-left"></div>
+        <div class="container">
+            <h2>What It Is</h2>
+            <p class="content">A monastery. A refugee camp. A laboratory and research hub.</p>
+            <p class="content">A refuge and container for those seeking depth. A classroom to learn and share unique skills and practices.</p>
+            <p class="content">A home for wild seekers and path-forgers—artists, poets, philosophers—who don't fit neatly inside a single tradition. A home for those who have rejected their culture and chosen to walk their own path.</p>
+        </div>
+    </section>
+
+    <!-- The Vision -->
+    <section>
+        <div class="infinity">∞</div>
+        <div class="column-decoration column-left"></div>
+        <div class="container">
+            <h2>The Vision</h2>
+            <p class="content">A space where deep meditation meets depth psychology, group work, and art. A place for those who have gone so deeply into one thing that they've emerged into everything again.</p>
+            <p class="content">It's rare to find truly intelligent humans who are also on the path. The world is full of intelligence, but often without a mystical dimension. Some communities (for example, in Bali) overflow with mysticism that can be ungrounded or prone to spiritual bypassing. Many artists touch the profound and live close to poetry and depth, yet may lack intellectual cultivation or an understanding of their spirituality. Likewise, many artists, mystics, and intellectuals carry unresolved psychological issues or insecure attachment patterns.</p>
+            <p class="emphasis">The Monastery exists at the meeting point of four pillars: intellect, art, relating, and mysticism.</p>
+        </div>
+    </section>
+
+    <!-- Four Pillars -->
+    <section>
+        <div class="stone-texture stone-2"></div>
+        <div class="container">
+            <h2>The Four Pillars</h2>
+            <div class="pillar-grid">
+                <div class="pillar-card">
+                    <h3>Art</h3>
+                    <p class="content" style="opacity: 1; transform: none; margin-bottom: 0;">Art circumambulates the unsymbolizable. It draws a dotted line around the profound and takes us as close as images and words allow.</p>
+                </div>
+                <div class="pillar-card">
+                    <h3>Mysticism</h3>
+                    <p class="content" style="opacity: 1; transform: none; margin-bottom: 0;">Direct experience of the divine through practices that cultivate altered states and embodied understanding.</p>
+                </div>
+                <div class="pillar-card">
+                    <h3>Intellect</h3>
+                    <p class="content" style="opacity: 1; transform: none; margin-bottom: 0;">Skepticism, clarity, insight—the ability to conceptualize your own path. A tool to be used wisely, not mistaken for the answer.</p>
+                </div>
+                <div class="pillar-card">
+                    <h3>Relating</h3>
+                    <p class="content" style="opacity: 1; transform: none; margin-bottom: 0;">Many psychological difficulties are relational in nature. We are social beings; how we relate to others is central to any authentic path.</p>
+                </div>
+            </div>
+            <p class="emphasis">At The Monastery, we cultivate all four.</p>
+        </div>
+    </section>
+
+    <!-- How We Practice -->
+    <section>
+        <div class="organic-shape shape-1"></div>
+        <div class="fern fern-right"></div>
+        <div class="container">
+            <h2>How We Practice</h2>
+            
+            <div class="practice-section">
+                <h3>Art</h3>
+                <p class="content">Art is encouraged—especially forms that shift consciousness (e.g., free associative art). Poetry and metaphor are foundational and infused across mediums. We learn to "follow the metaphor." This may be integrated with Jungian practices like active imagination or understood through Bionian reverie, deepening access to the subconscious with more clarity.</p>
+            </div>
+
+            <div class="practice-section">
+                <h3>Mysticism</h3>
+                <p class="content">The Monastery is a research lab for mystical practice. Commit your life to Nei Gong, Vipassana, or another lineage? Do it. Explore altered states through breathwork or shamanic drumming? Go for it. Different practices serve different purposes and affect the body and energy system in distinct ways. We respect each other's paths and learn from them. Transformation is our measure of efficacy.</p>
+            </div>
+
+            <div class="practice-section">
+                <h3>Relating</h3>
+                <p class="content">We cultivate a culture of conscious relating: Authentic Relating, Transformational Connection, Circling, psychodrama, and more. These practices weave the social fabric, provide accountability, and create the container for deep research into every other area.</p>
+            </div>
+
+            <div class="practice-section">
+                <h3>Intellect</h3>
+                <p class="content">We teach, learn, question, and critique—grounded in curiosity, care, and authentic relating. We notice when intellectual conversation is driven by emotional undertones rather than inquiry. We study and research our practices to understand what we are actually doing, and why.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ways of Living -->
+    <section>
+        <div class="organic-shape shape-2"></div>
+        <div class="column-decoration column-right"></div>
+        <div class="container">
+            <h2>Ways of Living</h2>
+            <p class="list-item">Ecological and embodied ethics.</p>
+            <p class="list-item">Situated in nature with permaculture-based food systems.</p>
+            <p class="list-item">Encouragement of foraging and cultivation of herbs and medicinal plants, alongside traditional medicine practices.</p>
+        </div>
+    </section>
+
+    <!-- Play and Sexuality -->
+    <section>
+        <div class="container">
+            <h2>On Play and Sexuality</h2>
+            <p class="content">Play is encouraged. Certain sexual practices are welcomed when they are consciously explored for growth and integration—not for hedonism. Couples are, of course, free to have sex as they wish. The emphasis is on awareness, consent, and development rather than indulgence.</p>
+        </div>
+    </section>
+
+    <!-- Governance -->
+    <section>
+        <div class="stone-texture stone-1"></div>
+        <div class="container">
+            <h2>Governance and Culture</h2>
+            <p class="list-item">Non-hierarchical in ethic, with practical differences in decision-making power where relevant (e.g., financial investment).</p>
+            <p class="list-item">The Monastery is a non-profit organization</p>
+            <p class="list-item">Group practices and circling function as social accountability.</p>
+            <p class="list-item">Members may vote to expel an individual if their behavior significantly disrupts the mission or compromises the container</p>
+        </div>
+    </section>
+
+    <!-- Curation -->
+    <section>
+        <div class="organic-shape shape-1"></div>
+        <div class="container">
+            <h2>Curation Over Inclusion</h2>
+            <p class="content" style="text-align: center; font-size: 1.3rem; font-style: italic;">The Monastery is not designed to be universally inclusive. It is intentionally curated.</p>
+        </div>
+    </section>
+
+    <!-- Who Should Apply -->
+    <section>
+        <div class="container">
+            <h2>Who Should Apply</h2>
+            <p class="content">You don't need to be a professional artist, a monk, or a philosopher. What matters is that you recognize the importance of all four pillars and arrive with curiosity and a desire to cultivate them.</p>
+            <p class="content">This is not primarily a training institution, its a transformative social container. Arriving with a sense of what you wish to develop is recommended</p>
+            <p class="content"><span class="highlight">Prerequisite: Some experience with relating practices (e.g., Transformational Connection, Circling, Authentic Relating) is required.</span></p>
+        </div>
+    </section>
+
+    <!-- Final Note -->
+    <section class="final-section">
+        <div class="corner-accent corner-tl"></div>
+        <div class="corner-accent corner-tr"></div>
+        <div class="corner-accent corner-bl"></div>
+        <div class="corner-accent corner-br"></div>
+        <div class="container">
+            <p class="content">Unfortunately, The Monastery is naught but a concept right now. We need investors, business-savvy minds, get-shit-done people.</p>
+            <p class="emphasis">If you feel called towards this project and want to help make it happen, please reach out.</p>
+        </div>
+    </section>
+
+    <div style="height: 200px;"></div>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.content, .pillar-card, .practice-section, .list-item, .emphasis').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth parallax for vines
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrollY = window.scrollY;
+                    
+                    document.querySelectorAll('.vine').forEach((vine, index) => {
+                        const speed = 0.2 + (index * 0.1);
+                        vine.style.transform = `translateY(${scrollY * speed}px)`;
+                    });
+
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+    </script>
+</body>
+</html>
