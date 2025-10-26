@@ -44,7 +44,7 @@
 
         h1 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 6.5rem;
+            font-size: clamp(2.5rem, 8vw, 6.5rem);
             text-align: center;
             letter-spacing: 0.25em;
             margin-bottom: 2rem;
@@ -72,7 +72,7 @@
 
         h2 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 4rem;
+            font-size: clamp(2rem, 5vw, 4rem);
             text-align: center;
             letter-spacing: 0.12em;
             margin-bottom: 5rem;
@@ -103,7 +103,7 @@
 
         h3 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
+            font-size: clamp(1.4rem, 3vw, 2rem);
             background: linear-gradient(90deg, 
                 rgb(240, 250, 245) 0%, 
                 rgb(200, 230, 215) 25%, 
@@ -120,7 +120,7 @@
 
         .subtitle {
             text-align: center;
-            font-size: 1.3rem;
+            font-size: clamp(1rem, 2vw, 1.3rem);
             font-style: italic;
             opacity: 0;
             font-weight: 300;
@@ -142,7 +142,7 @@
         }
 
         .content {
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 1.5vw, 1.1rem);
             line-height: 2;
             margin-bottom: 2.5rem;
             font-weight: 300;
@@ -167,7 +167,7 @@
 
         .pillar-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 3rem;
             margin-top: 4rem;
         }
@@ -270,7 +270,7 @@
         .list-item {
             margin-bottom: 2rem;
             padding-left: 2.5rem;
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 1.5vw, 1.1rem);
             line-height: 2;
             font-weight: 300;
             background: linear-gradient(90deg, 
@@ -307,7 +307,7 @@
         .emphasis {
             text-align: center;
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
             font-style: italic;
             background: linear-gradient(90deg, 
                 rgb(240, 250, 245) 0%, 
@@ -344,13 +344,13 @@
         }
 
         .final-section .content {
-            font-size: 1.25rem;
+            font-size: clamp(1.1rem, 1.8vw, 1.25rem);
             margin-bottom: 2.5rem;
             font-style: italic;
         }
 
         .final-section .emphasis {
-            font-size: 2.2rem;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
         }
 
         .contact-box {
@@ -375,7 +375,7 @@
             display: inline-block;
             margin-top: 2rem;
             padding: 1.2rem 3rem;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
             font-family: 'Cormorant Garamond', serif;
             letter-spacing: 0.1em;
             text-decoration: none;
@@ -394,20 +394,42 @@
         }
 
         @media (max-width: 768px) {
-            h1 {
-                font-size: 3.5rem;
-            }
-            h2 {
-                font-size: 2.5rem;
-            }
-            h3 {
-                font-size: 1.6rem;
-            }
-            .pillar-grid {
-                grid-template-columns: 1fr;
-            }
             section {
                 padding: 6rem 1.5rem;
+                min-height: auto;
+            }
+
+            h1 {
+                letter-spacing: 0.15em;
+            }
+
+            .pillar-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .practice-section {
+                padding: 2rem;
+            }
+
+            .practice-section .content {
+                padding-left: 1rem;
+                margin-left: 0.5rem;
+            }
+
+            .contact-box {
+                padding: 2rem;
+            }
+
+            .contact-button {
+                padding: 1rem 2rem;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .pillar-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2.5rem;
             }
         }
     </style>
