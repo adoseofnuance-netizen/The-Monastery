@@ -353,6 +353,46 @@
             font-size: 2.2rem;
         }
 
+        .contact-box {
+            margin-top: 4rem;
+            padding: 3rem;
+            border-radius: 30px;
+            background: linear-gradient(135deg, rgba(20, 70, 55, 0.6) 0%, rgba(40, 100, 80, 0.5) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(200, 230, 215, 0.3);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .contact-box.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact-button {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1.2rem 3rem;
+            font-size: 1.2rem;
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            color: rgb(15, 60, 45);
+            background: linear-gradient(135deg, rgb(200, 230, 215) 0%, rgb(160, 200, 180) 100%);
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            font-weight: 500;
+        }
+
+        .contact-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, rgb(220, 240, 230) 0%, rgb(180, 220, 200) 100%);
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 3.5rem;
@@ -507,6 +547,12 @@
         <div class="container">
             <p class="content">Unfortunately, The Monastery is naught but a concept right now. We need investors, business-savvy minds, get-shit-done people.</p>
             <p class="emphasis">If you feel called towards this project and want to help make it happen, please reach out.</p>
+            
+            <div class="contact-box">
+                <h2 style="margin-bottom: 1rem;">Get In Touch</h2>
+                <p class="content" style="opacity: 1; transform: none; margin-bottom: 0;">Ready to help bring The Monastery to life?</p>
+                <a href="mailto:devongandrews@gmail.com?subject=The%20Monastery%20Inquiry" class="contact-button">Contact Me</a>
+            </div>
         </div>
     </section>
 
@@ -530,7 +576,7 @@
         }, observerOptions);
 
         // Observe all animated elements
-        document.querySelectorAll('.content, .pillar-card, .practice-section, .list-item, .emphasis').forEach(el => {
+        document.querySelectorAll('.content, .pillar-card, .practice-section, .list-item, .emphasis, .contact-box').forEach(el => {
             observer.observe(el);
         });
     </script>
